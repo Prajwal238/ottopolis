@@ -181,7 +181,7 @@ class ShowTemplates extends StatelessWidget {
                   Row(
                     children: [
                       const Text("Streaming On: ", style: TextStyle(color: Colors.white)),
-                      Text(shows?[index].show?.webChannel?.officialSite.toString() ?? "null",
+                      Text(shows?[index].show?.webChannel?.officialSite.toString()  ?? (shows?[index].show?.network?.name.toString() ?? "null"),
                           style: const TextStyle(color: Colors.white))
                     ],
                   )
