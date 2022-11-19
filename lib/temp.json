@@ -1,0 +1,37 @@
+[
+    {
+      "score": 0.91029406,
+      "show": {
+        "id": 31365,
+        "url": "https://www.tvmaze.com/shows/31365/manifest",
+        "name": "Manifest",
+        "type": "Scripted",
+        "language": "English",
+        "genres": [
+          "Drama",
+          "Thriller",
+          "Mystery"
+        ],
+        "status": "Running",
+        "runtime": null,
+        "averageRuntime": 60,
+        "premiered": "2018-09-24",
+        "ended": null,
+        "officialSite": "https://www.netflix.com/title/80241318",
+        "rating": {
+          "average": 6.9
+        },
+        "webChannel": {
+          "id": 1,
+          "name": "Netflix",
+          "country": null,
+          "officialSite": "https://www.netflix.com/"
+        },
+        "image": {
+          "medium": "https://static.tvmaze.com/uploads/images/medium_portrait/424/1060802.jpg",
+          "original": "https://static.tvmaze.com/uploads/images/original_untouched/424/1060802.jpg"
+        },
+        "summary": "<p>When Montego Air Flight 828 landed safely after a turbulent but routine flight, the crew and passengers were relieved. But in the span of those few hours, the world had aged five years - and their friends, families and colleagues, after mourning their loss, had given up hope and moved on. Now, faced with the impossible, they're all given a second chance. But as their new realities become clear, a deeper mystery unfolds and some of the returned passengers soon realize they may be meant for something greater than they ever thought possible.</p>"
+      }
+    }
+  ]
