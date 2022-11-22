@@ -28,7 +28,7 @@ class ShowModel {
       );
 
   factory ShowModel.fromJson(Map<String, dynamic> json) => ShowModel(
-        score: json["score"].toDouble(),
+        score: json["score"]?.toDouble(),
         show: json["show"] == null ? null : Show.fromJson(json["show"]),
       );
 
