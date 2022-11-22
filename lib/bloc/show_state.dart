@@ -3,7 +3,7 @@ import '../model/show_model.dart';
 
 class ShowState extends Equatable {
   @override
-  // TODO: implement props
+
   List<Object?> get props => [];
 
 }
@@ -27,7 +27,7 @@ class ShowIsLoaded extends ShowState {
   List<ShowModel>? get getShowDetails => _showDetails;
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [_showDetails];
 }
 

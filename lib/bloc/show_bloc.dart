@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ottopolis/bloc/show_event.dart';
 import 'package:ottopolis/bloc/show_state.dart';
 import 'package:ottopolis/cubit/internet_cubit.dart';
 
+import '../cubit/internet_state.dart';
 import '../model/show_model.dart';
 import '../repo/show_repo.dart';
 
@@ -38,8 +38,7 @@ class ShowBloc extends Bloc<ShowEvent, ShowState> {
       log("hereeeeeeee $shows");
       emit(ShowIsLoaded(shows));
     } catch (err) {
-      //TODO:Implement Error Handeling
-      print(err);
+      log(err.toString());
       emit(ShowIsNotLoaded());
     }
   }

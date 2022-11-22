@@ -1,4 +1,4 @@
-part of 'internet_cubit.dart';
+import 'package:flutter/cupertino.dart';
 
 enum ConnectionType {
   wifi,

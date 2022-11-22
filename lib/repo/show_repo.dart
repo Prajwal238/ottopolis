@@ -5,7 +5,7 @@ import '../model/show_model.dart';
 import 'package:http/http.dart' as http;
 
 class ShowRepo {
-  Future<List<ShowModel>?> getShowsList(String showQuery) async {
+  Future<dynamic> getShowsList(String showQuery) async {
     log("Inside inside showrepo $showQuery");
     try {
       String apiUrl = "https://api.tvmaze.com/search/shows?q=$showQuery";
@@ -20,11 +20,11 @@ class ShowRepo {
         log("resultssssssssss: $result");
         return shows;
       } else {
-        // throw Exception(response.statusCode);
-        return null;
+        throw Exception(response.statusCode);
+        // return null;
       }
     } on Exception catch (err) {
-      //TODO: Implement Error Handling
+      log(err.toString());
     }
     // return null;
   }
