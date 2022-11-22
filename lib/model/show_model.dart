@@ -167,32 +167,32 @@ class Show {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "url": url == null ? null : url,
-        "name": name == null ? null : name,
-        "type": type == null ? null : type,
-        "language": language == null ? null : language,
+        "url": url,
+        "name": name,
+        "type": type,
+        "language": language,
         "genres": genres == null ? null : List<dynamic>.from(genres!.map((x) => x)),
-        "status": status == null ? null : status,
-        "runtime": runtime == null ? null : runtime,
-        "averageRuntime": averageRuntime == null ? null : averageRuntime,
+        "status": status,
+        "runtime": runtime,
+        "averageRuntime": averageRuntime,
         "premiered": premiered == null
             ? null
             : "${premiered?.year.toString().padLeft(4, '0')}-${premiered?.month.toString().padLeft(2, '0')}-${premiered?.day.toString().padLeft(2, '0')}",
         "ended": ended == null
             ? null
             : "${ended?.year.toString().padLeft(4, '0')}-${ended?.month.toString().padLeft(2, '0')}-${ended?.day.toString().padLeft(2, '0')}",
-        "officialSite": officialSite == null ? null : officialSite,
-        "schedule": schedule == null ? null : schedule?.toJson(),
-        "rating": rating == null ? null : rating?.toJson(),
-        "weight": weight == null ? null : weight,
-        "network": network == null ? null : network?.toJson(),
-        "webChannel": webChannel == null ? null : webChannel?.toJson(),
+        "officialSite": officialSite,
+        "schedule": schedule?.toJson(),
+        "rating": rating?.toJson(),
+        "weight": weight,
+        "network": network?.toJson(),
+        "webChannel": webChannel?.toJson(),
         "dvdCountry": dvdCountry,
-        "externals": externals == null ? null : externals?.toJson(),
-        "img": img == null ? null : img?.toJson(),
-        "summary": summary == null ? null : summary,
-        "updated": updated == null ? null : updated,
-        "_links": links == null ? null : links?.toJson(),
+        "externals": externals?.toJson(),
+        "img": img?.toJson(),
+        "summary": summary,
+        "updated": updated,
+        "_links": links?.toJson(),
       };
 }
 
@@ -220,14 +220,14 @@ class Externals {
 
   factory Externals.fromJson(Map<String, dynamic> json) => Externals(
         tvrage: json["tvrage"],
-        thetvdb: json["thetvdb"] == null ? null : json["thetvdb"],
-        imdb: json["imdb"] == null ? null : json["imdb"],
+        thetvdb: json["thetvdb"],
+        imdb: json["imdb"],
       );
 
   Map<String, dynamic> toJson() => {
         "tvrage": tvrage,
-        "thetvdb": thetvdb == null ? null : thetvdb,
-        "imdb": imdb == null ? null : imdb,
+        "thetvdb": thetvdb,
+        "imdb": imdb,
       };
 }
 
@@ -250,13 +250,13 @@ class Img {
       );
 
   factory Img.fromJson(Map<String, dynamic> json) => Img(
-        medium: json["medium"] == null ? null : json["medium"],
-        original: json["original"] == null ? null : json["original"],
+        medium: json["medium"],
+        original: json["original"],
       );
 
   Map<String, dynamic> toJson() => {
-        "medium": medium == null ? null : medium,
-        "original": original == null ? null : original,
+        "medium": medium,
+        "original": original,
       };
 }
 
@@ -289,9 +289,9 @@ class Links {
       );
 
   Map<String, dynamic> toJson() => {
-        "self": self == null ? null : self?.toJson(),
-        "previousepisode": previousepisode == null ? null : previousepisode?.toJson(),
-        "nextepisode": nextepisode == null ? null : nextepisode?.toJson(),
+        "self": self?.toJson(),
+        "previousepisode": previousepisode?.toJson(),
+        "nextepisode": nextepisode?.toJson(),
       };
 }
 
@@ -310,11 +310,11 @@ class Nextepisode {
       );
 
   factory Nextepisode.fromJson(Map<String, dynamic> json) => Nextepisode(
-        href: json["href"] == null ? null : json["href"],
+        href: json["href"],
       );
 
   Map<String, dynamic> toJson() => {
-        "href": href == null ? null : href,
+        "href": href,
       };
 }
 
@@ -345,17 +345,17 @@ class Network {
       );
 
   factory Network.fromJson(Map<String, dynamic> json) => Network(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
+        id: json["id"],
+        name: json["name"],
         country: json["country"] == null ? null : Country.fromJson(json["country"]),
-        officialSite: json["officialSite"] == null ? null : json["officialSite"],
+        officialSite: json["officialSite"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "country": country == null ? null : country?.toJson(),
-        "officialSite": officialSite == null ? null : officialSite,
+        "id": id,
+        "name": name,
+        "country": country?.toJson(),
+        "officialSite": officialSite,
       };
 }
 
@@ -382,15 +382,15 @@ class Country {
       );
 
   factory Country.fromJson(Map<String, dynamic> json) => Country(
-        name: json["name"] == null ? null : json["name"],
-        code: json["code"] == null ? null : json["code"],
-        timezone: json["timezone"] == null ? null : json["timezone"],
+        name: json["name"],
+        code: json["code"],
+        timezone: json["timezone"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name == null ? null : name,
-        "code": code == null ? null : code,
-        "timezone": timezone == null ? null : timezone,
+        "name": name,
+        "code": code,
+        "timezone": timezone,
       };
 }
 
@@ -409,11 +409,11 @@ class Rating {
       );
 
   factory Rating.fromJson(Map<String, dynamic> json) => Rating(
-        average: json["average"] == null ? null : json["average"].toDouble(),
+        average: json["average"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
-        "average": average == null ? null : average,
+        "average": average,
       };
 }
 
@@ -436,12 +436,12 @@ class Schedule {
       );
 
   factory Schedule.fromJson(Map<String, dynamic> json) => Schedule(
-        time: json["time"] == null ? null : json["time"],
+        time: json["time"],
         days: json["days"] == null ? null : List<dynamic>.from(json["days"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "time": time == null ? null : time,
+        "time": time,
         "days": days == null ? null : List<dynamic>.from(days!.map((x) => x)),
       };
 }
