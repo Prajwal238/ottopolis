@@ -10,10 +10,9 @@ import 'package:ottopolis/model/show_model.dart';
 import 'package:ottopolis/bloc/show_bloc.dart';
 import 'package:ottopolis/bloc/show_event.dart';
 import 'package:ottopolis/bloc/show_state.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'config_reader.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Provider.of<MaterialColor?>(context),
         ),
         home: const MyHomePage(title: 'Flutter Demo Home Page'),
       ),
@@ -67,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Icon(
                 Icons.signal_wifi_connected_no_internet_4_outlined,
                 size: 45,
-                color: Colors.blue,
+                // color: Colors.blue,
               ),
             );
           } else {
@@ -75,9 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text(
-                    'Find If the series matches your Interest',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  Text(
+                    ConfigReader.getSecretMesssage(),
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
                   ),
                   Row(
                     children: [
@@ -175,7 +174,7 @@ class ShowTemplates extends StatelessWidget {
                   Row(
                     children: [
                       const Text("Genres: ", style: TextStyle(color: Colors.white)),
-                      Text(shows?[index].show?.genres.toString() ?? "null", style: const TextStyle(color: Colors.white))
+                      Text(shows?[index].show?.genres?.join(",") ?? "null", style: const TextStyle(color: Colors.white))
                     ],
                   ),
                   Row(
