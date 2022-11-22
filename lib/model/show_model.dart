@@ -409,8 +409,8 @@ class Rating {
       );
 
   factory Rating.fromJson(Map<String, dynamic> json) => Rating(
-        // ignore: prefer_null_aware_operators
-        average: json["average"] == null ? null : json["average"].toDouble(),
+        
+        average: json["average"]?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
