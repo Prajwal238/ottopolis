@@ -196,7 +196,8 @@ class ShowTemplates extends StatelessWidget {
                 ),
             itemCount: shows!.length);
       } else {
-        const Center(
+        log("${shows}here in else");
+        return const Center(
             child: Text(
           ":( Uh-Oh! No results found",
           style: TextStyle(fontSize: 25, color: Colors.white),
