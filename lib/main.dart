@@ -143,9 +143,12 @@ class ShowTemplates extends StatelessWidget {
       if (shows!.isNotEmpty) {
         inspect(shows);
         log("inside widget: ${shows?[0].show?.img?.original.toString()}");
-        return ListView.separated(
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
+        return ListWheelScrollView.useDelegate(
+          // scrollDirection: Axis.vertical,
+          itemExtent: MediaQuery.of(context).size.height * 0.8,
+          childDelegate: ListWheelChildBuilderDelegate(
+            childCount: shows!.length,
+            builder: (context, index) {
               return ListTile(
                 title: shows?[index].show?.img?.original.toString() != null
                     ? Image.network(shows![index].show!.img!.original.toString())
@@ -191,10 +194,16 @@ class ShowTemplates extends StatelessWidget {
                 ),
               );
             },
-            separatorBuilder: (context, index) => const SizedBox(
-                  width: 10,
-                ),
-            itemCount: shows!.length);
+          ),
+        );
+
+        // itemBuilder: (context, index) {
+
+        // },
+        // separatorBuilder: (context, index) => const SizedBox(
+        //       width: 10,
+        //     ),
+        // itemCount: shows!.length);
       } else {
         log("${shows}here in else");
         return const Center(
