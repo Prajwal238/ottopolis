@@ -1,12 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
+import 'package:mocktail/mocktail.dart';
+
 import 'package:ottopolis/bloc/show_bloc.dart';
 import 'package:ottopolis/bloc/show_event.dart';
 import 'package:ottopolis/bloc/show_state.dart';
 import 'package:ottopolis/cubit/internet_cubit.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:ottopolis/model/show_model.dart';
 import 'package:ottopolis/repo/show_repo.dart';
 
