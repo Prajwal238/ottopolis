@@ -140,57 +140,68 @@ class ShowTemplates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (shows != null) {
-      inspect(shows);
-      log("inside widget: ${shows?[0].show?.img?.original.toString()}");
-      return ListView.separated(
-          scrollDirection: Axis.vertical,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: shows?[index].show?.img?.original.toString() != null
-                  ? Image.network(shows![index].show!.img!.original.toString())
-                  : const Icon(
-                      Icons.error,
-                      color: Colors.white,
-                    ),
-              subtitle: Column(
-                children: [
-                  Row(
-                    children: [
-                      const Text(
-                        "Title: ",
-                        style: TextStyle(color: Colors.white),
+      if (shows!.isNotEmpty) {
+        inspect(shows);
+        log("inside widget: ${shows?[0].show?.img?.original.toString()}");
+        return ListView.separated(
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: shows?[index].show?.img?.original.toString() != null
+                    ? Image.network(shows![index].show!.img!.original.toString())
+                    : const Icon(
+                        Icons.error,
+                        color: Colors.white,
                       ),
-                      Text(shows?[index].show?.name.toString() ?? "null", style: const TextStyle(color: Colors.white))
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text("Rating: ", style: TextStyle(color: Colors.white)),
-                      Text(shows?[index].show?.rating?.average.toString() ?? "null",
-                          style: const TextStyle(color: Colors.white))
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text("Genres: ", style: TextStyle(color: Colors.white)),
-                      Text(shows?[index].show?.genres?.join(",") ?? "null", style: const TextStyle(color: Colors.white))
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text("Streaming On: ", style: TextStyle(color: Colors.white)),
-                      Text(shows?[index].show?.webChannel?.officialSite.toString()  ?? (shows?[index].show?.network?.name.toString() ?? "null"),
-                          style: const TextStyle(color: Colors.white))
-                    ],
-                  )
-                ],
-              ),
-            );
-          },
-          separatorBuilder: (context, index) => const SizedBox(
-                width: 10,
-              ),
-          itemCount: shows!.length);
+                subtitle: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const Text(
+                          "Title: ",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(shows?[index].show?.name.toString() ?? "null", style: const TextStyle(color: Colors.white))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Text("Rating: ", style: TextStyle(color: Colors.white)),
+                        Text(shows?[index].show?.rating?.average.toString() ?? "null",
+                            style: const TextStyle(color: Colors.white))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Text("Genres: ", style: TextStyle(color: Colors.white)),
+                        Text(shows?[index].show?.genres?.join(",") ?? "null",
+                            style: const TextStyle(color: Colors.white))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Text("Streaming On: ", style: TextStyle(color: Colors.white)),
+                        Text(
+                            shows?[index].show?.webChannel?.officialSite.toString() ??
+                                (shows?[index].show?.network?.name.toString() ?? "null"),
+                            style: const TextStyle(color: Colors.white))
+                      ],
+                    )
+                  ],
+                ),
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(
+                  width: 10,
+                ),
+            itemCount: shows!.length);
+      } else {
+        const Center(
+            child: Text(
+          ":( Uh-Oh! No results found",
+          style: TextStyle(fontSize: 25),
+        ));
+      }
     }
     return Container();
   }
