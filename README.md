@@ -1,6 +1,6 @@
 # ottopolis
 
-A new Flutter project.
+A basic Flutter project to implement the learnings I have taken from Bloc, Unit Testing using bloc and setting up CI/CD pipeline using Codemagic.
 
 ## Getting Started
 
