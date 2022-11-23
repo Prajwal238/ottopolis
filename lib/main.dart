@@ -199,7 +199,7 @@ class ShowTemplates extends StatelessWidget {
         const Center(
             child: Text(
           ":( Uh-Oh! No results found",
-          style: TextStyle(fontSize: 25),
+          style: TextStyle(fontSize: 25, color: Colors.white),
         ));
       }
     }
