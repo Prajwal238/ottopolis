@@ -25,7 +25,7 @@ void main() {
       showBloc = ShowBloc(mockShowRepo, internetCubit: InternetCubit(connectivity: Connectivity()));
     });
 
-    blocTest('emits [ShowIsLoading,ShowIsLoaded when successful]',
+    blocTest('emits [ShowIsLoading,ShowIsLoaded] when successful',
     build: () {
       when(()  => mockShowRepo.getShowsList('manifest')).thenAnswer((_) async => show);
       return ShowBloc(mockShowRepo, internetCubit: InternetCubit(connectivity: Connectivity()));
@@ -36,6 +36,17 @@ void main() {
       ShowIsLoaded(show)
     ]
     );
+
+    blocTest('emits [ShowIsLoading,ShowisNotLoaded] when fetching fails',
+    build: () {
+      when(() => mockShowRepo.getShowsList('manifest')).thenAnswer((_) async => throwsException);
+      return ShowBloc(mockShowRepo, internetCubit: InternetCubit(connectivity: Connectivity()));
+    },
+    act: (bloc) => bloc.add(FetchShows('manifest')),
+    expect: () => [
+      ShowIsLoading(),
+      ShowIsNotLoaded()
+    ]);
 
     tearDown(() {
       showBloc.close();
