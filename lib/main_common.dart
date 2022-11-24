@@ -9,19 +9,30 @@ Future<void> mainCommon(String env) async {
   await ConfigReader.initialize();
 
   MaterialColor primaryColor;
+  bool flagPresence;
   switch (env) {
     case Environment.dev:
-      primaryColor = Colors.blue;
+      primaryColor = Colors.yellow;
+      flagPresence = true;
       break;
     case Environment.prod:
-      primaryColor = Colors.purple;
+      primaryColor = Colors.amber;
+      flagPresence = false;
       break;
-    default: 
+    default:
       primaryColor = Colors.red;
+      flagPresence = true;
   }
 
-  runApp(Provider.value(
-    value: primaryColor,
+  runApp(MultiProvider(
+    providers: [
+      Provider<bool>.value(
+        value: flagPresence,
+      ),
+      Provider<MaterialColor?>.value(
+        value: primaryColor,
+      ),
+    ],
     child: const MyApp(),
   ));
 }
