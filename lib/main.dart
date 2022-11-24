@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ottopolis/cubit/internet_cubit.dart';
 import 'package:ottopolis/repo/show_repo.dart';
 import 'package:ottopolis/model/show_model.dart';
@@ -10,6 +11,7 @@ import 'package:ottopolis/bloc/show_bloc.dart';
 import 'package:ottopolis/bloc/show_event.dart';
 import 'package:ottopolis/bloc/show_state.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'config_reader.dart';
 
@@ -31,8 +33,10 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: Provider.of<bool>(context),
         title: 'Flutter Demo',
         theme: ThemeData(
+          textTheme: GoogleFonts.rubikTextTheme(),
           primarySwatch: Provider.of<MaterialColor?>(context),
         ),
         home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -61,62 +65,84 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context, state) {
           log(state.toString());
           if (state is InternetConnectionLost) {
-            return const Center(
+            return Center(
               child: Icon(
                 Icons.signal_wifi_connected_no_internet_4_outlined,
                 size: 45,
-                // color: Colors.blue,
+                color: Provider.of<MaterialColor?>(context),
               ),
             );
           } else {
             if (state is ShowIsNotSearched) {
               return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text(
-                    ConfigReader.getSecretMesssage(),
-                    style: const TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: showNameController,
-                          decoration: const InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Colors.white70,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                borderSide: BorderSide(color: Colors.white70, style: BorderStyle.solid)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                borderSide: BorderSide(color: Colors.blue, style: BorderStyle.solid)),
-                            hintText: "Search",
-                            hintStyle: TextStyle(color: Colors.white70),
-                          ),
-                          style: const TextStyle(color: Colors.white70),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "OTTOPOLIS",
+                          style: GoogleFonts.rubikGlitch(fontSize: 65, color: Provider.of<MaterialColor?>(context)),
                         ),
-                      ),
-                      const SizedBox(width: 5),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              log(showNameController.text);
-                              showBloc.add(FetchShows(showNameController.text));
-                            },
-                            child: const Icon(Icons.search)),
-                      )
-                    ],
-                  )
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            ConfigReader.getSecretMesssage(),
+                            style: const TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: showNameController,
+                                  decoration: const InputDecoration(
+                                    // prefixIcon: Icon(
+                                    //   Icons.search,
+                                    //   color: Colors.white70,
+                                    // ),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                        borderSide: BorderSide(color: Colors.white70, style: BorderStyle.solid)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                                        borderSide: BorderSide(color: Colors.blue, style: BorderStyle.solid)),
+                                    hintText: "Search",
+                                    hintStyle: TextStyle(color: Colors.white70),
+                                  ),
+                                  style: const TextStyle(color: Colors.white70),
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.07,
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                child: ElevatedButton(
+                                    onPressed: () async {
+                                      log(showNameController.text);
+                                      showBloc.add(FetchShows(showNameController.text));
+                                    },
+                                    child: const Icon(Icons.search)),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Lottie.asset('assets/ottopolis-movie-animation.json')
                 ],
               );
             } else if (state is ShowIsLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return Center(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: Lottie.asset('assets/ottopolis-loading-animation.json'),
+                ),
               );
             } else if (state is ShowIsLoaded) {
               log("inside ShowIsLoaded state");
@@ -143,67 +169,103 @@ class ShowTemplates extends StatelessWidget {
       if (shows!.isNotEmpty) {
         inspect(shows);
         log("inside widget: ${shows?[0].show?.img?.original.toString()}");
-        return ListWheelScrollView.useDelegate(
-          // scrollDirection: Axis.vertical,
-          itemExtent: MediaQuery.of(context).size.height * 0.8,
-          childDelegate: ListWheelChildBuilderDelegate(
-            childCount: shows!.length,
-            builder: (context, index) {
-              return ListTile(
-                title: shows?[index].show?.img?.original.toString() != null
-                    ? Image.network(shows![index].show!.img!.original.toString())
-                    : const Icon(
-                        Icons.error,
-                        color: Colors.white,
-                      ),
-                subtitle: Column(
-                  children: [
-                    Row(
-                      children: [
-                        const Text(
-                          "Title: ",
-                          style: TextStyle(color: Colors.white),
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 70.0),
+              child: Row(
+                children: [
+                  Icon(Icons.search, color: Provider.of<MaterialColor?>(context), size: 70,),
+                  const Text("Search Results", style: TextStyle(color: Colors.white, fontSize: 35,),
+                  textAlign: TextAlign.start,)
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView.separated(
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.17,
+                      child: ListTile(
+                        leading: shows?[index].show?.img?.original.toString() != null
+                            ? SizedBox(
+                                height: 200,
+                                width: 80,
+                                child: Image.network(
+                                  shows![index].show!.img!.original.toString(),
+                                  fit: BoxFit.cover,
+                                  scale: 1,
+                                ),
+                              )
+                            : const Icon(
+                                Icons.error,
+                                color: Colors.white,
+                              ),
+                        title: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(shows?[index].show?.name.toString() ?? "null",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                      ),
+                                      softWrap: false,
+                                      overflow: TextOverflow.fade),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text("Rating: ", style: TextStyle(color: Colors.white)),
+                                Expanded(
+                                  child: Text(shows?[index].show?.rating?.average.toString() ?? "null",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                      softWrap: false,
+                                      overflow: TextOverflow.fade),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text("Genres: ", style: TextStyle(color: Colors.white)),
+                                Expanded(
+                                  child: Text(shows?[index].show?.genres?.join(",") ?? "null",
+                                      style: const TextStyle(color: Colors.white),
+                                      softWrap: false,
+                                      overflow: TextOverflow.fade),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text("Streaming On: ", style: TextStyle(color: Colors.white)),
+                                Expanded(
+                                  child: Text(
+                                      shows?[index].show?.webChannel?.officialSite.toString() ??
+                                          (shows?[index].show?.network?.name.toString() ?? "null"),
+                                      style: const TextStyle(color: Colors.white),
+                                      softWrap: false,
+                                      overflow: TextOverflow.fade),
+                                )
+                              ],
+                            )
+                          ],
                         ),
-                        Text(shows?[index].show?.name.toString() ?? "null", style: const TextStyle(color: Colors.white))
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Text("Rating: ", style: TextStyle(color: Colors.white)),
-                        Text(shows?[index].show?.rating?.average.toString() ?? "null",
-                            style: const TextStyle(color: Colors.white))
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Text("Genres: ", style: TextStyle(color: Colors.white)),
-                        Text(shows?[index].show?.genres?.join(",") ?? "null",
-                            style: const TextStyle(color: Colors.white))
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Text("Streaming On: ", style: TextStyle(color: Colors.white)),
-                        Text(
-                            shows?[index].show?.webChannel?.officialSite.toString() ??
-                                (shows?[index].show?.network?.name.toString() ?? "null"),
-                            style: const TextStyle(color: Colors.white))
-                      ],
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                        height: 1,
+                      ),
+                  itemCount: shows!.length),
+            ),
+          ],
         );
-
-        // itemBuilder: (context, index) {
-
-        // },
-        // separatorBuilder: (context, index) => const SizedBox(
-        //       width: 10,
-        //     ),
-        // itemCount: shows!.length);
       } else {
         log("${shows}here in else");
         return const Center(
